@@ -1,0 +1,18 @@
+{    
+    "autoload": {
+        "psr-4": {
+            "bytebee\\": "bytebee"
+        }
+    },
+    "name": "bytebee/integra-e-s-p-n",
+    "description": "Integração HUBSoft com ESPN WATCH.",
+    "authors": [
+        {
+            "name": "Lucas Calixto de Oliveira",
+            "email": "lucas@bytebee.com.br"
+        }
+    ],
+    "require": {
+        "mashape/unirest-php": "^3.0"
+    }
+}
