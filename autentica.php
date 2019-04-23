@@ -16,33 +16,40 @@ $t = bytebee\ApiHUBSoft::getService($login);
 
 if(count($t->clientes) > 0) {
 
+    $activeService = false;
+
     foreach($t->clientes[0]->servicos as $serv) {
+
         if(strcmp($serv->nome, 'ESPN PLAY - FULL') == 0) {
             if(strcmp($serv->senha, $password) != 0) {
-                return Header("Location: /login?erro=Senha incorreta");
+                Header("Location: /login.php?erro=Senha incorreta");
+                return;
             }
+            $activeService = true;
             bytebee\ApiESPN::redrectPlay('full', $token);
             break;
-        }
-
-        if(strcmp($serv->nome, 'ESPN PLAY - LIGHT') == 0) {
+        } elseif(strcmp($serv->nome, 'ESPN PLAY - LIGHT') == 0) {
             if(strcmp($serv->senha, $password) != 0) {
-                return Header("Location: /login?erro=Senha incorreta");
+                Header("Location: /login.php?erro=Senha incorreta");
+                return;
             }
+            $activeService = true;
             bytebee\ApiESPN::redrectPlay('light', $token);
             break;
-        }
-
-        if(strcmp($serv->nome, 'ESPN PLAY - BROADBAND') == 0) {
+        } elseif(strcmp($serv->nome, 'ESPN PLAY - BROADBAND') == 0) {
             if(strcmp($serv->senha, $password) != 0) {
-                return Header("Location: /login?erro=Senha incorreta");
+                Header("Location: /login.php?erro=Senha incorreta");
+                return;
             }
+            $activeService = true;
             bytebee\ApiESPN::redrectPlay('broadband', $token);
             break;
-        } else {
-            return Header("Location: /login?erro=Serviço não habilitado");
         }
     }
+
+    if(!$activeService) {
+        return Header("Location: /login.php?erro=Serviço não habilitado");
+    }
 } else {
-    return Header("Location: /login?erro=Usuário não encontrado");
+    return Header("Location: /login.php?erro=Usuário não encontrado");
 }
